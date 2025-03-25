@@ -2,6 +2,7 @@
 
 @theme {
   --color-mainbg: #05081A;
+  --color-bglight: #0C1132;
 }
 
 :root {
