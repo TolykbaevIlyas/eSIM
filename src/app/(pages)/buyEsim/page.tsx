@@ -1229,6 +1229,7 @@ export default function BuyESIM() {
           </motion.div>
         ))}
       </div>
+        <p className="mt-[24px]">{type === 'Local' ? 'Select a Country' : type === 'Regional' ? 'Select a Region' : type === 'Global' ? 'Select a Global eSim Package' : ''}</p>
 
       {/* Поисковое поле */}
       <div className="mt-6 w-full max-w-md">
