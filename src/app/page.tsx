@@ -4,6 +4,7 @@ import { ESIMSlider } from "@/components/eSimSlider";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+// import { useTranslation } from "react-i18next";
 
 const advantages = [
   {
@@ -75,6 +76,7 @@ const advantages = [
 ]
 
 export default function Home() {
+  // const { t } = useTranslation(['common'])
   return (
     <main className="flex flex-col">
       <div className="bg-bglight flex flex-col items-center rounded-[16px] pb-[53px]">
