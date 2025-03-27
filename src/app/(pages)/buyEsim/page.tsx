@@ -165,7 +165,7 @@ const categories = {
       "name": "",
       "image": {
         "path": "/images/buyEsimPage/local/20.svg",
-        "alt": ""
+        "alt": "Cambodia"
       }
     },
     {
@@ -1198,7 +1198,8 @@ const categories = {
     }
   ],
 };
-function BuyESIM() {
+
+export default function BuyESIM() {
   const [query, setQuery] = useState("");
   const [type, setType] = useState<"Local" | "Regional" | "Global">("Local");
 
@@ -1210,6 +1211,7 @@ function BuyESIM() {
     <div className="mt-6 flex flex-col items-center mb-16">
       <h2 className="text-2xl font-bold">Buy eSim</h2>
 
+      {/* Переключатель категорий */}
       <div className="bg-bglight w-full max-w-md h-14 rounded-lg flex items-center justify-center mt-2">
         {(["Local", "Regional", "Global"] as const).map((item) => (
           <motion.div
@@ -1228,6 +1230,7 @@ function BuyESIM() {
         ))}
       </div>
 
+      {/* Поисковое поле */}
       <div className="mt-6 w-full max-w-md">
         <input
           type="text"
@@ -1238,6 +1241,7 @@ function BuyESIM() {
         />
       </div>
 
+      {/* Список элементов */}
       <AnimatePresence mode="wait">
         <motion.div
           key={type}
@@ -1248,10 +1252,10 @@ function BuyESIM() {
           className="mt-6 flex flex-col gap-4 w-full max-w-md"
         >
           {filteredItems.map((item) => {
+            // Преобразуем название в slug (например, "Brazil" -> "brazil")
             const slug = item.name.toLowerCase().replace(/\s+/g, "-");
-
             return (
-              <Link key={item.id} href={`/buy-esim/${type.toLowerCase()}/${slug}`}>
+              <Link key={item.id} href={`/buyEsim/${type.toLowerCase()}/${slug}`}>
                 <motion.div
                   className="bg-bglight px-4 py-3 rounded-xl flex items-center gap-4 cursor-pointer"
                   whileHover={{ scale: 1.05 }}
@@ -1273,5 +1277,3 @@ function BuyESIM() {
     </div>
   );
 }
-
-export default BuyESIM;
