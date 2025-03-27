@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 const slides = [
   {
@@ -123,13 +124,18 @@ export default function EsimSlider() {
         </div>
 
         {/* Button */}
-        <motion.button 
+        <motion.div 
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="mt-4 w-full bg-gradient-to-r from-[#27A6E1] to-[#4381EB] max-w-[328px] rounded-[16px] py-[10px] text-[24px] font-bold"
+          className="text-center  w-full max-w-[328px]"
         >
-          Get mobile data
-        </motion.button>
+          <Link 
+            href="/buyEsim" 
+            className="w-full max-w-[328px] block bg-gradient-to-r from-[#27A6E1] to-[#4381EB] rounded-[16px] py-[10px] text-[24px] font-bold text-white"
+          >
+            Get mobile data
+          </Link>
+        </motion.div>
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ const Navbar = () => {
     const pathname = usePathname();
 
     return (
-        <div className='fixed bottom-0 bg-mainbg py-[8px] px-[16px] w-full flex justify-center gap-[8px]'>
+        <div className='fixed bottom-0 bg-mainbg py-[8px] px-[16px] w-full flex justify-center gap-[8px] z-20'>
 
             {[
                 { href: "/", icon: "/images/navbar/Home.svg", label: "Home" },
