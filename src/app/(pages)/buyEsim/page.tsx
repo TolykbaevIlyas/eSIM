@@ -8,7 +8,7 @@ const Local = [
     id: 1,
     name: "Aland Islands",
     image: {
-      path: "/images/buyEsimPage/1.svg",
+      path: "/images/buyEsimPage/local/1.svg",
       alt: "Aland Islands"
     }
   },
@@ -16,7 +16,7 @@ const Local = [
     id: 2,
     name: "Albania",
     image: {
-      path: "/images/buyEsimPage/2.svg",
+      path: "/images/buyEsimPage/local/2.svg",
       alt: "Albania"
     }
   },
@@ -24,7 +24,7 @@ const Local = [
     id: 3,
     name: "Algeria",
     image: {
-      path: "/images/buyEsimPage/3.svg",
+      path: "/images/buyEsimPage/local/3.svg",
       alt: "Algeria"
     }
   },
@@ -32,7 +32,7 @@ const Local = [
     id: 4,
     name: "Argentina",
     image: {
-      path: "/images/buyEsimPage/4.svg",
+      path: "/images/buyEsimPage/local/4.svg",
       alt: "Argentina"
     }
   },
@@ -40,7 +40,7 @@ const Local = [
     id: 5,
     name: "Armenia",
     image: {
-      path: "/images/buyEsimPage/5.svg",
+      path: "/images/buyEsimPage/local/5.svg",
       alt: "Armenia"
     }
   },
@@ -48,7 +48,7 @@ const Local = [
     id: 6,
     name: "Australia",
     image: {
-      path: "/images/buyEsimPage/6.svg",
+      path: "/images/buyEsimPage/local/6.svg",
       alt: "Australia"
     }
   },
@@ -56,7 +56,7 @@ const Local = [
     id: 7,
     name: "Austria",
     image: {
-      path: "/images/buyEsimPage/7.svg",
+      path: "/images/buyEsimPage/local/7.svg",
       alt: "Austria"
     }
   },
@@ -64,7 +64,7 @@ const Local = [
     id: 8,
     name: "Azerbaijan",
     image: {
-      path: "/images/buyEsimPage/8.svg",
+      path: "/images/buyEsimPage/local/8.svg",
       alt: "Azerbaijan"
     }
   },
@@ -72,7 +72,7 @@ const Local = [
     id: 9,
     name: "Bahrain",
     image: {
-      path: "/images/buyEsimPage/9.svg",
+      path: "/images/buyEsimPage/local/9.svg",
       alt: "Bahrain"
     }
   },
@@ -80,7 +80,7 @@ const Local = [
     id: 10,
     name: "Bangladesh",
     image: {
-      path: "/images/buyEsimPage/10.svg",
+      path: "/images/buyEsimPage/local/10.svg",
       alt: "Bangladesh"
     }
   },
@@ -88,7 +88,7 @@ const Local = [
     id: 11,
     name: "Belarus",
     image: {
-      path: "/images/buyEsimPage/11.svg",
+      path: "/images/buyEsimPage/local/11.svg",
       alt: "Belarus"
     }
   },
@@ -96,7 +96,7 @@ const Local = [
     id: 12,
     name: "Belgium",
     image: {
-      path: "/images/buyEsimPage/12.svg",
+      path: "/images/buyEsimPage/local/12.svg",
       alt: "Belgium"
     }
   },
@@ -104,7 +104,7 @@ const Local = [
     id: 13,
     name: "Bolivia",
     image: {
-      path: "/images/buyEsimPage/13.svg",
+      path: "/images/buyEsimPage/local/13.svg",
       alt: "Bolivia"
     }
   },
@@ -112,7 +112,7 @@ const Local = [
     id: 14,
     name: "Bosnia and Herzegovina",
     image: {
-      path: "/images/buyEsimPage/14.svg",
+      path: "/images/buyEsimPage/local/14.svg",
       alt: "Bosnia and Herzegovina"
     }
   },
@@ -120,13 +120,13 @@ const Local = [
     id: 15,
     name: "Botswana",
     image: {
-      path: "/images/buyEsimPage/15.svg",
+      path: "/images/buyEsimPage/local/15.svg",
       alt: "Botswana"
     }
   }
 ];
 
-const Regional =[
+const Regional = [
   {
     id: 1,
     name: "Europe",
@@ -175,9 +175,9 @@ const Regional =[
       alt: "Carribean"
     }
   },
-]
+];
 
-const Global =[
+const Global = [
   {
     id: 1,
     name: "Global 1GB",
@@ -218,19 +218,40 @@ const Global =[
       alt: "Global 20 GB"
     }
   }
-]
+];
 
 const BuyESIM = () => {
   const [query, setQuery] = useState('');
-  const [type, setType] = useState("Local")
+  const [type, setType] = useState("Local");
+
+  // Фильтрация списка Local по введённому запросу
+  const filteredLocal = Local.filter(loc =>
+    loc.name.toLowerCase().includes(query.toLowerCase())
+  );
+
   return (
     <div className="mt-[24px] flex flex-col items-center mb-[70px]">
       <div className="max-w-[328px] w-full">
         <h2 className="text-[32px]">Buy eSim</h2>
         <div className="bg-bglight w-full h-[60px] rounded-[12px] flex items-center justify-center mt-[8px]">
-          <div className={`max-w-[101px] w-full h-[39px] ${type === "Local" ? "bg-gradient-to-r from-[#27A6E1] to-[#4381EB]" : ""} flex flex-col justify-center items-center text-[16px] rounded-[4px]`} onClick={()=> setType("Local")}>Local</div>
-          <div className={`max-w-[101px] w-full h-[39px] ${type === "Regional" ? "bg-gradient-to-r from-[#27A6E1] to-[#4381EB]" : ""} flex flex-col justify-center items-center text-[16px] rounded-[4px]`} onClick={()=> setType("Regional")}>Regional</div>
-          <div className={`max-w-[101px] w-full h-[39px] ${type === "Global" ? "bg-gradient-to-r from-[#27A6E1] to-[#4381EB]" : ""} flex flex-col justify-center items-center text-[16px] rounded-[4px]`} onClick={()=> setType("Global")}>Global</div>
+          <div 
+            className={`cursor-pointer max-w-[101px] w-full h-[39px] ${type === "Local" ? "bg-gradient-to-r from-[#27A6E1] to-[#4381EB]" : ""} flex flex-col justify-center items-center text-[16px] rounded-[4px]`} 
+            onClick={()=> setType("Local")}
+          >
+            Local
+          </div>
+          <div 
+            className={`cursor-pointer max-w-[101px] w-full h-[39px] ${type === "Regional" ? "bg-gradient-to-r from-[#27A6E1] to-[#4381EB]" : ""} flex flex-col justify-center items-center text-[16px] rounded-[4px]`} 
+            onClick={()=> setType("Regional")}
+          >
+            Regional
+          </div>
+          <div 
+            className={`cursor-pointer max-w-[101px] w-full h-[39px] ${type === "Global" ? "bg-gradient-to-r from-[#27A6E1] to-[#4381EB]" : ""} flex flex-col justify-center items-center text-[16px] rounded-[4px]`} 
+            onClick={()=> setType("Global")}
+          >
+            Global
+          </div>
         </div>
         {type === "Local" ? 
         <>
@@ -242,7 +263,7 @@ const BuyESIM = () => {
                 placeholder="search country"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                className=" w-full rounded-[16px] bg-bglight  text-white placeholder-gray-400 px-4 py-2 pr-10 outline-none border border-[#2d2d44] focus:border-blue-500"
+                className="w-full rounded-[16px] bg-bglight text-white placeholder-gray-400 px-4 py-2 pr-10 outline-none border border-[#2d2d44] focus:border-blue-500"
               />
               <button className="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-white">
                 <Image src="/images/buyEsimPage/search.svg" width={24} height={25} alt="esim"/>
@@ -251,47 +272,50 @@ const BuyESIM = () => {
           </div>
           <div className="mt-[24px] flex flex-col gap-[10px]">
             {
-            Local.map(loc => 
-              <div key={loc.id} className="w-full bg-bglight px-[15px] h-[80px] rounded-[20px] flex gap-[16px] items-center">
-                <Image src={loc.image.path} width={33} height={32} alt={loc.image.alt}/>
-                <h4>{loc.name}</h4>
-              </div>
-            )}
+              // Используем отфильтрованный массив
+              filteredLocal.map(loc => 
+                <div key={loc.id} className="w-full bg-bglight px-[15px] h-[80px] rounded-[20px] flex gap-[16px] items-center">
+                  <Image src={loc.image.path} width={33} height={32} alt={loc.image.alt}/>
+                  <h4>{loc.name}</h4>
+                </div>
+              )
+            }
           </div>
         </> :
         type === "Regional" ? 
         <>
           <div className="mt-[24px]">
-              <h3 className="text-center">Select a Region</h3>
-            </div>
-            <div className="mt-[24px] flex flex-col gap-[10px]">
-              {
+            <h3 className="text-center">Select a Region</h3>
+          </div>
+          <div className="mt-[24px] flex flex-col gap-[10px]">
+            {
               Regional.map(loc => 
                 <div key={loc.id} className="w-full bg-bglight px-[15px] h-[80px] rounded-[20px] flex gap-[16px] items-center">
                   <Image src={loc.image.path} width={33} height={32} alt={loc.image.alt}/>
                   <h4>{loc.name}</h4>
                 </div>
-              )}
-            </div>
-        </>: 
+              )
+            }
+          </div>
+        </> : 
         type === "Global" ?
-         <>
+        <>
           <div className="mt-[24px]">
-                <h3 className="text-center">Select a Global eSim Package</h3>
-              </div>
-              <div className="mt-[24px] flex flex-col gap-[10px]">
-                {
-                Global.map(loc => 
-                  <div key={loc.id} className="w-full bg-bglight px-[15px] h-[80px] rounded-[20px] flex gap-[16px] items-center">
-                    <Image src={loc.image.path} width={33} height={32} alt={loc.image.alt}/>
-                    <h4>{loc.name}</h4>
-                  </div>
-                )}
-              </div>
-         </>
-          : null
-      }
-
+            <h3 className="text-center">Select a Global eSim Package</h3>
+          </div>
+          <div className="mt-[24px] flex flex-col gap-[10px]">
+            {
+              Global.map(loc => 
+                <div key={loc.id} className="w-full bg-bglight px-[15px] h-[80px] rounded-[20px] flex gap-[16px] items-center">
+                  <Image src={loc.image.path} width={33} height={32} alt={loc.image.alt}/>
+                  <h4>{loc.name}</h4>
+                </div>
+              )
+            }
+          </div>
+        </>
+        : null
+        }
       </div>
     </div>
   );

@@ -1,6 +1,8 @@
 'use client'
 
+import { ESIMSlider } from "@/components/eSimSlider";
 import Image from "next/image";
+import Link from "next/link";
 
 const advantages = [
   {
@@ -80,7 +82,7 @@ export default function Home() {
         <p className="text-[16px] text-center mt-[16px]">with</p>
         <h1 className="mt-[48px] text-[48px] bg-gradient-to-b from-[#27A6E1] to-[#4381EB] bg-clip-text text-transparent font-bold">eSim Unlimited</h1>
         <p className="text-[16px] text-center mt-[16px] px-[40px]">High-speed internet in 150+ countries. No roaming fees, no hidden charges, and no physical SIM required</p>
-        <button className="mt-[48px] w-full bg-gradient-to-r from-[#27A6E1] to-[#4381EB] max-w-[328px] rounded-[16px] py-[10px] mb-[54px] text-[24px] font-bold">Buy eSim</button>
+        <Link href="/buyEsim" className="text-center mt-[48px] w-full bg-gradient-to-r from-[#27A6E1] to-[#4381EB] max-w-[328px] rounded-[16px] py-[10px] mb-[54px] text-[24px] font-bold">Buy eSim</Link>  
       </div>
       <div className="mt-[50px]">
         <h3 className="text-[32px] text-center">Our Advantages</h3>
@@ -92,30 +94,14 @@ export default function Home() {
                 <p className="text-[16px] font-[300]">{advantage.description}</p>
               </div>
           )}
-           <button className="w-full bg-gradient-to-r from-[#27A6E1] to-[#4381EB] max-w-[328px] rounded-[16px] py-[10px] text-[24px] font-bold">Try now </button>
+           <Link href="/buyEsim" className="text-center w-full bg-gradient-to-r from-[#27A6E1] to-[#4381EB] max-w-[328px] rounded-[16px] py-[10px] text-[24px] font-bold">Try now</Link>
 
         </div>
       </div>
       <div className="flex flex-col mt-[50px] items-center mb-[120px]">
         <h3 className="text-[32px] font-[400]">eSIM Setup Guide</h3>
         <p className="mt-[24px] text-[16px] font-[300] px-[16px] text-center">Take these 3 easy steps to get eSIM on your phone!</p>
-        <div className="mt-[16px] max-w-[328px] w-full bg-gradient-to-r from-[#1D2240] to-[#000625] rounded-[16px] flex justify-between h-[293px] items-center text-center py-[18px] gap-[16px] px-[18px]">
-          <Image src="/images/mainpage/arrowL.svg" alt="buy Now" width={44} height={44}/>
-          <Image src="/images/mainpage/buyNow.svg" alt="buy Now" width={115} height={149}/>
-          <Image src="/images/mainpage/arrowR.svg" alt="buy Now" width={44} height={44}/>
-        </div>
-        <div className="flex flex-col gap-[16px] items-center text-center mt-[16px]">
-          <p className="font-[500]">Choose eSIM Data Plan</p>
-          <p className=" font-[300] max-w-[328px] w-full">Pick an eSIM data plan that suits your needs. Stay connected with the entire world, anytime, anywhere.</p>
-          <div className="flex items-center gap-[8px]">
-              <div className="py-[10px] px-[16px] flex items-center text-center bg-white rounded-full text-black font-[500] text-[16px]">1</div>
-              <div className="py-[10px] px-[16px] flex items-center text-center bg-gradient-to-r from-[#1D2240] to-[#000625] rounded-full text-white font-[500] text-[16px]">2</div>
-              <div className="py-[10px] px-[16px] flex items-center text-center bg-gradient-to-r from-[#1D2240] to-[#000625] rounded-full text-white font-[500] text-[16px]">3</div>
-              <div className="py-[10px] px-[16px] flex items-center text-center bg-gradient-to-r from-[#1D2240] to-[#000625] rounded-full text-white font-[500] text-[16px]">4</div>
-          </div>
-          <button className="mt-[10px] w-full bg-gradient-to-r from-[#27A6E1] to-[#4381EB] max-w-[328px] rounded-[16px] py-[10px] text-[24px] font-bold">Get mobile data</button>
-
-        </div>
+        <ESIMSlider/>
       </div >
 
     </main>
