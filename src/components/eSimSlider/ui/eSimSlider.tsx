@@ -41,8 +41,17 @@ export default function EsimSlider() {
     <div className="flex flex-col items-center text-center">
       {/* Slider container */}
       <div className="relative mt-4 max-w-[328px] w-full bg-gradient-to-r from-[#1D2240] to-[#000625] rounded-[16px] h-[293px] flex justify-center items-center overflow-hidden">
-        <button onClick={prevSlide} className="absolute left-4 z-10">
-          <Image src="/images/mainpage/arrowL.svg" alt="Previous" width={44} height={44} />
+      <button 
+        onClick={prevSlide} 
+        className="absolute left-4 z-10"
+        >
+            <motion.div
+                whileHover={{ scale: 1.1 }} // Увеличивается при наведении
+                whileTap={{ scale: 0.9 }} // Эффект нажатия
+                transition={{ type: "spring", stiffness: 300, damping: 15 }} // Плавность
+            >
+                <Image src="/images/mainpage/arrowL.svg" alt="Previous" width={44} height={44} />
+            </motion.div>
         </button>
 
         <AnimatePresence mode="wait">
@@ -58,8 +67,17 @@ export default function EsimSlider() {
           </motion.div>
         </AnimatePresence>
 
-        <button onClick={nextSlide} className="absolute right-4 z-10">
-          <Image src="/images/mainpage/arrowR.svg" alt="Next" width={44} height={44} />
+        <button 
+            onClick={nextSlide} 
+            className="absolute right-4 z-10"
+            >
+            <motion.div
+                whileHover={{ scale: 1.1 }} // Немного увеличивается при наведении
+                whileTap={{ scale: 0.9 }} // Создаёт эффект нажатия
+                transition={{ type: "spring", stiffness: 300, damping: 15 }} // Плавный эффект
+            >
+                <Image src="/images/mainpage/arrowR.svg" alt="Next" width={44} height={44} />
+            </motion.div>
         </button>
       </div>
 

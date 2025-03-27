@@ -1,6 +1,7 @@
 'use client'
 
 import { ESIMSlider } from "@/components/eSimSlider";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -76,13 +77,24 @@ const advantages = [
 export default function Home() {
   return (
     <main className="flex flex-col">
-      <div className="bg-bglight flex flex-col items-center rounded-[16px]">
+      <div className="bg-bglight flex flex-col items-center rounded-[16px] pb-[53px]">
         <Image className="absolute" src="/images/mainpage/WorldMap.svg" width={332} height={332} alt="World map"/>
         <p className="z-30 mt-[53px] text-[32px] text-center">Stay Connected Anywhere</p>
         <p className="text-[16px] text-center mt-[16px]">with</p>
         <h1 className="mt-[48px] text-[48px] bg-gradient-to-b from-[#27A6E1] to-[#4381EB] bg-clip-text text-transparent font-bold">eSim Unlimited</h1>
         <p className="text-[16px] text-center mt-[16px] px-[40px]">High-speed internet in 150+ countries. No roaming fees, no hidden charges, and no physical SIM required</p>
-        <Link href="/buyEsim" className="text-center mt-[48px] w-full bg-gradient-to-r from-[#27A6E1] to-[#4381EB] max-w-[328px] rounded-[16px] py-[10px] mb-[54px] text-[24px] font-bold">Buy eSim</Link>  
+        <motion.div 
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="text-center mt-[48px] w-full max-w-[328px]"
+        >
+          <Link 
+            href="/buyEsim" 
+            className="w-full max-w-[328px] block bg-gradient-to-r from-[#27A6E1] to-[#4381EB] rounded-[16px] py-[10px] text-[24px] font-bold text-white"
+          >
+            Buy eSim
+          </Link>
+        </motion.div>
       </div>
       <div className="mt-[50px]">
         <h3 className="text-[32px] text-center">Our Advantages</h3>
@@ -94,7 +106,18 @@ export default function Home() {
                 <p className="text-[16px] font-[300]">{advantage.description}</p>
               </div>
           )}
-           <Link href="/buyEsim" className="text-center w-full bg-gradient-to-r from-[#27A6E1] to-[#4381EB] max-w-[328px] rounded-[16px] py-[10px] text-[24px] font-bold">Try now</Link>
+           <motion.div 
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="text-center  w-full max-w-[328px]"
+        >
+          <Link 
+            href="/buyEsim" 
+            className="w-full max-w-[328px] block bg-gradient-to-r from-[#27A6E1] to-[#4381EB] rounded-[16px] py-[10px] text-[24px] font-bold text-white"
+          >
+            Try Now
+          </Link>
+        </motion.div>
 
         </div>
       </div>
