@@ -140,8 +140,8 @@ const FAQItem = ({ question, answer,index}: { question: string; answer: string ;
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex gap-[19px] items-center">
-            <span className="bg-gradient-to-b from-[#27A6E1] to-[#4381EB] bg-clip-text text-transparent font-bold text-[16px]">0{index + 1}</span>
-            <span className="text-lg font-semibold ">{question}</span>
+            <span className="bg-gradient-to-b from-[#27A6E1] to-[#4381EB] bg-clip-text text-transparent font-bold text-[16px]">{index >= 9 ? "": "0"}{index + 1}</span>
+            <span className="text-[16px] font-semibold max-w-[216px] w-full">{question}</span>
         </div>
         <motion.span className="bg-gradient-to-r from-[#27A6E1] to-[#4381EB] py-[8px] px-[5px] rounded-full" animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.3 }}>
           <Image src="/images/faq/arrow.svg" alt="Arrow" width={14} height={28} className="object-cover"/>
@@ -161,7 +161,7 @@ const FAQItem = ({ question, answer,index}: { question: string; answer: string ;
 
 const FAQPage = () => {
   return (
-    <div className="mx-[16px]">        
+    <div className="mx-[16px] mb-[70px]">        
         <h1 className="text-left text-[32px] ">FAQ</h1>
         <div className="flex flex-col gap-[16px] max-w-lg mx-auto mt-10 text-white rounded-lg shadow-lg overflow-hidden items-center">
             {faqs.map((faq, index) => (
