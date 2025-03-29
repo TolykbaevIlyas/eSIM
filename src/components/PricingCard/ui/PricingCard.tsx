@@ -12,17 +12,17 @@ const PricingCard = ({
   data,
   duration,
   coverage,
-  topUp,
+  supportTopUpType,
   locations,
   // packageName
 }: {
   name?: string;
   description?: string;
-  price: string | number;
+  price:  number;
   data: string;
   duration: string;
   coverage?: string;
-  topUp: string;
+  supportTopUpType: number;
   locations?: string[];
   packageName?: string;
 }) => {
@@ -38,7 +38,7 @@ const PricingCard = ({
       {/* <h3 className="text-[16px] text-white">{description}</h3> */}
       <div className="flex justify-between items-center">
         <h2 className="text-[16px] font-[500]">{name}</h2>
-        <span className="text-[24px] font-[700]">${price}</span>
+        <span className="text-[24px] font-[700]">${(price/ 10000).toFixed(2)}</span>
       </div>
       <motion.div 
           whileHover={{ scale: 1.05 }}
@@ -77,7 +77,7 @@ const PricingCard = ({
           <span className='flex gap-[8px] items-center'>
             <Image src="/images/buyEsimPage/PricingCard/TopUpSupport.svg" width={24} height={24} alt="Top-Up Support"/> Top-Up Support
           </span>
-          <span className="text-[14px] text-[#6170C3] font-[400]">{topUp}</span>
+          <span className="text-[14px] text-[#6170C3] font-[400]">{supportTopUpType === 2 ? "Yes" : "No"}</span>
         </div>
         {locations && (
           <div className="flex justify-between text-sm bg-mainbg p-2 rounded-lg">
