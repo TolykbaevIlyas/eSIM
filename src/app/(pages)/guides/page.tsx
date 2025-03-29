@@ -385,12 +385,10 @@ const slides = [
     const [platform, setPlatform] = useState<"IOS" | "Android">("IOS");
     const [guideType, setGuideType] = useState<"Installation" | "Activation">("Installation");
   
-    // Фильтруем слайды по выбранным параметрам
     const filteredSlides = slides.filter(
       (slide) => slide.type === platform && slide.preType === guideType
     );
   
-    // Сброс индекса при изменении платформы или типа руководства
     useEffect(() => {
       setIndex(0);
     }, [platform, guideType]);
@@ -398,7 +396,6 @@ const slides = [
     const nextSlide = () => setIndex((prev) => (prev + 1) % filteredSlides.length);
     const prevSlide = () => setIndex((prev) => (prev - 1 + filteredSlides.length) % filteredSlides.length);
   
-    // Если нет слайдов для выбранных настроек
     if (filteredSlides.length === 0) {
       return (
         <div className="flex flex-col items-center justify-center text-white bg-[#0A0D1E] min-h-screen">
@@ -410,7 +407,6 @@ const slides = [
     return (
       <div className="flex flex-col items-center text-white bg-[#0A0D1E] min-h-screen mb-14">
         <h2 className="text-[32px] max-w-[328px] font-bold text-left w-full">Guides</h2>
-        {/* Переключатель платформ */}
         <div className="bg-bglight w-full max-w-[328px] h-14 rounded-lg flex items-center justify-center mt-2">
           {(["IOS", "Android"] as const).map((item) => (
             <motion.div
@@ -428,7 +424,6 @@ const slides = [
             </motion.div>
           ))}
         </div>
-        {/* Переключатель типа руководства */}
         <div className="flex">
           {(["Installation", "Activation"] as const).map((item) => (
             <motion.div
@@ -447,7 +442,6 @@ const slides = [
           ))}
         </div>
         
-        {/* Слайдер */}
         <div className="relative w-full max-w-md mt-6 flex flex-col items-center">
           <button 
             onClick={prevSlide} 
