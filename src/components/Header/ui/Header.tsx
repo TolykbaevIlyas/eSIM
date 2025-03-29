@@ -81,6 +81,7 @@ const Header = () => {
               <a href="/guides" className="hover:text-blue-400">Guides</a>
               <a href="/faq" className="hover:text-blue-400">FAQ</a>
               <a href="/support-device" className="hover:text-blue-400">Supported Devices</a>
+              <a href="/paymentMethod" className="hover:text-blue-400">Payment Method</a>
               <a href="#" className="hover:text-blue-400">Log out</a>
             </nav>
             <div className='flex gap-[4px] mt-[24px]'>
