@@ -1,103 +1,134 @@
+'use client'
+
+import { ESIMSlider } from "@/components/eSimSlider";
+import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
+// import { useTranslation } from "react-i18next";
+
+const advantages = [
+  {
+    id: 1,
+    image: {
+      path: "/images/mainpage/1.svg",
+      width: 43,
+      height: 43,
+      alt: "Two way call"
+    },
+    text: "Two-way Calls and Messages",
+    description: "Stay connected: make calls and send messages on any device, anytime, anywhere."
+  },
+  {
+    id: 2,
+    image: {
+      path: "/images/mainpage/5.svg",
+      width: 48,
+      height: 48,
+      alt: "Convenient Payment Options"
+    },
+    text: "Convenient Payment Options",
+    description: "Securely complete transactions with our advanced payment system, supporting both credit cards and cryptocurrency"
+  },
+  {
+    id: 3,
+    image: {
+      path: "/images/mainpage/3.svg",
+      width: 48,
+      height: 48,
+      alt: "24/7 Customer Support"
+    },
+    text: "24/7 Customer Support",
+    description: "If you have any queries, simply contact us and we'll get back to you right away."
+  },
+  {
+    id: 4,
+    image: {
+      path: "/images/mainpage/4.svg",
+      width: 48,
+      height: 48,
+      alt: "Transparent Conditions"
+    },
+    text: "Transparent Conditions",
+    description: "No extra charges, no roaming costs—only clear, straightforward pricing"
+  },
+  {
+    id: 5,
+    image: {
+      path: "/images/mainpage/6.svg",
+      width: 48,
+      height: 48,
+      alt: "User-friendly Interface"
+    },
+    text: "User-friendly Interface",
+    description: "Thanks to our user-friendly design and extensive multilingual support, convenience is just one tap away"
+  },
+  {
+    id: 6,
+    image: {
+      path: "/images/mainpage/7.svg",
+      width: 48,
+      height: 48,
+      alt: "Quick and Seamless Setup"
+    },
+    text: "Quick and Seamless Setup",
+    description: "Set up your eSIM in no time—just choose your perfect plan from our diverse selection and activate it right away"
+  },
+]
 
 export default function Home() {
+  // const { t } = useTranslation(['common'])
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <main className="flex flex-col">
+      <div className="bg-bglight flex flex-col items-center rounded-[16px] pb-[53px]">
+        <Image className="absolute" src="/images/mainpage/WorldMap.svg" width={332} height={332} alt="World map"/>
+        <p className="z-30 mt-[53px] text-[32px] text-center">Stay Connected Anywhere</p>
+        <p className="text-[16px] text-center mt-[16px]">with</p>
+        <h1 className="mt-[48px] text-[48px] bg-gradient-to-b from-[#27A6E1] to-[#4381EB] bg-clip-text text-transparent font-bold">eSim Unlimited</h1>
+        <p className="text-[16px] text-center mt-[16px] px-[40px]">High-speed internet in 150+ countries. No roaming fees, no hidden charges, and no physical SIM required</p>
+        <motion.div 
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="text-center mt-[48px] w-full max-w-[328px]"
+        >
+          <Link 
+            href="/buyEsim" 
+            className="w-full max-w-[328px] block bg-gradient-to-r from-[#27A6E1] to-[#4381EB] rounded-[16px] py-[10px] text-[24px] font-bold text-white"
+          >
+            Buy eSim
+          </Link>
+        </motion.div>
+      </div>
+      <div className="mt-[50px]">
+        <h3 className="text-[32px] text-center">Our Advantages</h3>
+        <div className="mt-[24px] flex flex-col items-center gap-[16px]">
+          {advantages.map(advantage=> 
+              <div key={advantage.id} className="max-w-[328px] w-full bg-gradient-to-r from-[#1D2240] to-[#000625] rounded-[16px] flex flex-col items-center text-center py-[18px] gap-[16px] px-[18px]">
+                <Image src={advantage.image.path} width={advantage.image.width} height={advantage.image.height} alt={advantage.image.alt} className=""/>
+                <p className="text-[16px] font-[600] font-roboto">{advantage.text}</p>
+                <p className="text-[16px] font-[300]">{advantage.description}</p>
+              </div>
+          )}
+           <motion.div 
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="text-center  w-full max-w-[328px]"
+        >
+          <Link 
+            href="/buyEsim" 
+            className="w-full max-w-[328px] block bg-gradient-to-r from-[#27A6E1] to-[#4381EB] rounded-[16px] py-[10px] text-[24px] font-bold text-white"
+          >
+            Try Now
+          </Link>
+        </motion.div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </div>
+      <div className="flex flex-col mt-[50px] items-center mb-[120px]">
+        <h3 className="text-[32px] font-[400]">eSIM Setup Guide</h3>
+        <p className="mt-[24px] text-[16px] font-[300] px-[16px] text-center">Take these 3 easy steps to get eSIM on your phone!</p>
+        <ESIMSlider/>
+      </div >
+
+    </main>
   );
 }
