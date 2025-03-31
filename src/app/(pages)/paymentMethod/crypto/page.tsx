@@ -10,7 +10,7 @@ const CryptoPayment = () => {
   const [promocode, setPromocode] = useState("");
   const [promoError, setPromoError] = useState("");
 
-  const validatePromoCode = (code) => {
+  const validatePromoCode = (code: string) => {
     const regex = /^\d{4}$/;
     if (!regex.test(code)) {
       setPromoError("Промокод должен содержать ровно 4 цифры.");
@@ -19,7 +19,7 @@ const CryptoPayment = () => {
     }
   };
 
-  const handlePromoChange = (e) => {
+  const handlePromoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPromocode(e.target.value);
   };
 

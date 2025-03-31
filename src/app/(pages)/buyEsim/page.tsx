@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 
 type CountryItem = {
   id: number;
@@ -12,7 +12,7 @@ type CountryItem = {
   image: {
     path: string;
     alt: string;
-  }
+  };
 };
 
 type PackageItem = {
@@ -20,6 +20,26 @@ type PackageItem = {
   slug: string;
   name: string;
   location: string;
+};
+
+type RegionalItem = {
+  id: number;
+  name: string;
+  filter: string;
+  image: {
+    path: string;
+    alt: string;
+  };
+};
+
+type GlobalItem = {
+  id: number;
+  name: string;
+  filter: string;
+  image: {
+    path: string;
+    alt: string;
+  };
 };
 
 export default function BuyESIM() {
@@ -30,27 +50,28 @@ export default function BuyESIM() {
   const [regionalPackages, setRegionalPackages] = useState<PackageItem[]>([]);
   const [globalPackages, setGlobalPackages] = useState<PackageItem[]>([]);
   const [availableLocal, setAvailableLocal] = useState<CountryItem[]>([]);
-  const [availableRegional, setAvailableRegional] = useState<any[]>([]);
-  const [availableGlobal, setAvailableGlobal] = useState<any[]>([]);
+  const [availableRegional, setAvailableRegional] = useState<RegionalItem[]>([]);
+  const [availableGlobal, setAvailableGlobal] = useState<GlobalItem[]>([]);
 
-
-  const regionalItems = [
+  // Оборачиваем массивы в useMemo, чтобы их ссылка оставалась стабильной
+  const regionalItems = useMemo<RegionalItem[]>(() => [
     { id: 1, name: "Europe", filter: "eu", image: { path: "/images/buyEsimPage/region/1.svg", alt: "Europe" } },
     { id: 2, name: "South america", filter: "sa", image: { path: "/images/buyEsimPage/region/2.svg", alt: "South america" } },
     { id: 3, name: "North america", filter: "na", image: { path: "/images/buyEsimPage/region/3.svg", alt: "North america" } },
     { id: 4, name: "Africa", filter: "af", image: { path: "/images/buyEsimPage/region/4.svg", alt: "Africa" } },
     { id: 5, name: "Asia", filter: "as", image: { path: "/images/buyEsimPage/region/5.svg", alt: "Asia" } },
     { id: 6, name: "Carribean", filter: "ca", image: { path: "/images/buyEsimPage/region/6.svg", alt: "Carribean" } },
-  ];
+  ], []);
 
-  const globalItems = [
+  const globalItems = useMemo<GlobalItem[]>(() => [
     { id: 1, name: "Global 1GB", filter: "1gb", image: { path: "/images/buyEsimPage/global/1.svg", alt: "Global 1GB" } },
     { id: 2, name: "Global 3 GB", filter: "3gb", image: { path: "/images/buyEsimPage/global/2.svg", alt: "Global 3 GB" } },
     { id: 3, name: "Global 5 GB", filter: "5gb", image: { path: "/images/buyEsimPage/global/3.svg", alt: "Global 5 GB" } },
     { id: 4, name: "Global 10 GB", filter: "10gb", image: { path: "/images/buyEsimPage/global/4.svg", alt: "Global 10 GB" } },
     { id: 5, name: "Global 20 GB", filter: "20gb", image: { path: "/images/buyEsimPage/global/5.svg", alt: "Global 20 GB" } },
-  ];
+  ], []);
 
+  // Загрузка данных
   useEffect(() => {
     fetch("/countries.json")
       .then((res) => res.json())
@@ -58,10 +79,10 @@ export default function BuyESIM() {
         const countries = Object.entries(data).map(([code, name], index) => ({
           id: index + 1,
           code,
-          name,
+          name: name as string,
           image: {
             path: `/images/flags/${code}.png`,
-            alt: name,
+            alt: name as string,
           },
         }));
         setLocalCountries(countries);
@@ -90,37 +111,44 @@ export default function BuyESIM() {
       .catch((error) => console.error("Ошибка загрузки globalPackages:", error));
   }, []);
 
+  // Фильтрация локальных стран
   useEffect(() => {
     if (localCountries.length && countryPackages.length) {
       const availableCodes = new Set(
-        countryPackages.map(pkg => pkg.location.toLowerCase())
+        countryPackages.map((pkg) => pkg.location.toLowerCase())
       );
-      const filteredLocal = localCountries.filter(country =>
+      const filteredLocal = localCountries.filter((country) =>
         availableCodes.has(country.code.toLowerCase())
       );
       setAvailableLocal(filteredLocal);
     }
   }, [localCountries, countryPackages]);
 
+  // Фильтрация региональных пакетов
   useEffect(() => {
     if (regionalPackages.length) {
-      const filteredRegional = regionalItems.filter(region =>
-        regionalPackages.some(pkg => pkg.slug.toLowerCase().startsWith(region.filter))
+      const filteredRegional = regionalItems.filter((region) =>
+        regionalPackages.some((pkg) => pkg.slug.toLowerCase().startsWith(region.filter))
       );
       setAvailableRegional(filteredRegional);
     }
-  }, [regionalPackages]);
+  }, [regionalPackages, regionalItems]);
 
+  // Фильтрация глобальных пакетов
   useEffect(() => {
     if (globalPackages.length) {
-      const filteredGlobal = globalItems.filter(globalItem =>
-        globalPackages.some(pkg => pkg.name.toLowerCase().includes(globalItem.filter))
+      const filteredGlobal = globalItems.filter((globalItem) =>
+        globalPackages.some((pkg) => pkg.name.toLowerCase().includes(globalItem.filter))
       );
       setAvailableGlobal(filteredGlobal);
     }
-  }, [globalPackages]);
+  }, [globalPackages, globalItems]);
 
-  const categories: { [key in "Local" | "Regional" | "Global"]: any[] } = {
+  const categories: {
+    Local: CountryItem[];
+    Regional: RegionalItem[];
+    Global: GlobalItem[];
+  } = {
     Local: availableLocal,
     Regional: availableRegional,
     Global: availableGlobal,
@@ -152,11 +180,11 @@ export default function BuyESIM() {
         ))}
       </div>
       <p className="mt-[24px]">
-        {type === 'Local'
-          ? 'Select a Country'
-          : type === 'Regional'
-          ? 'Select a Region'
-          : 'Select a Global eSim Package'}
+        {type === "Local"
+          ? "Select a Country"
+          : type === "Regional"
+          ? "Select a Region"
+          : "Select a Global eSim Package"}
       </p>
 
       <div className="mt-6 w-full max-w-md">
@@ -180,9 +208,11 @@ export default function BuyESIM() {
         >
           {filteredItems.map((item) => {
             const slug =
-              type === "Local"
+              type === "Local" && "code" in item
                 ? item.code.toLowerCase()
-                : item.filter; 
+                : "filter" in item
+                ? item.filter
+                : "unknown";
             return (
               <Link key={item.id} href={`/buyEsim/${type.toLowerCase()}/${slug}`}>
                 <motion.div

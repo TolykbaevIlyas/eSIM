@@ -7,14 +7,12 @@ import { useState } from 'react';
 
 const PricingCard = ({
   name,
-  description,
   price,
   data,
   duration,
   coverage,
   supportTopUpType,
   locations,
-  // packageName
 }: {
   name?: string;
   description?: string;
@@ -26,7 +24,7 @@ const PricingCard = ({
   locations?: string[];
   packageName?: string;
 }) => {
-  const [expanded, setExpanded] = useState(false);
+  const [expanded] = useState(false);
 
   return (
     <motion.div

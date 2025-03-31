@@ -18,7 +18,7 @@ const BankPayment = () => {
     promocode: ""
   });
 
-  const validateCardNumber = (number) => {
+  const validateCardNumber = (number : string) => {
     const sanitized = number.replace(/\s+/g, "");
     if (!/^\d{16}$/.test(sanitized)) {
       return "Номер карты должен содержать 16 цифр.";
@@ -26,28 +26,28 @@ const BankPayment = () => {
     return "";
   };
 
-  const validateTerm = (term) => {
+  const validateTerm = (term: string) => {
     if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(term)) {
       return "Срок действия должен быть в формате MM/YY.";
     }
     return "";
   };
 
-  const validateCvc = (cvc) => {
+  const validateCvc = (cvc: string) => {
     if (!/^\d{3}$/.test(cvc)) {
       return "CVC должен содержать 3 цифры.";
     }
     return "";
   };
 
-  const validatePromocode = (code) => {
+  const validatePromocode = (code: string) => {
     if (code && !/^\d{4}$/.test(code)) {
       return "Промокод должен содержать 4 цифры.";
     }
     return "";
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const cardError = validateCardNumber(cardNumber);
     const termError = validateTerm(term);

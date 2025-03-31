@@ -4,7 +4,20 @@ import { PricingCard } from "@/components/PricingCard";
 import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { useParams } from 'next/navigation';
 import 'swiper/css';
+
+interface Operator {
+  operatorName: string;
+  networkType: string;
+}
+
+interface LocationNetwork {
+  locationName: string;
+  locationLogo: string;
+  locationCode: string;
+  operatorList: Operator[];
+}
 
 interface Package {
   packageCode: string;
@@ -27,28 +40,14 @@ interface Package {
   ipExport: string;
   supportTopUpType: number;
   fupPolicy: string;
-  locationNetworkList: any[];
+  locationNetworkList: LocationNetwork[];
 }
 
-interface PageProps {
-  params: {
-    type: string; // "local", "regional", "global"
-    slug: string; // для local — код страны (например, "es"); для regional/global — slug региона или пакета
-  };
-}
-
-export default function CountryPage({ params }: PageProps) {
-  const { type, slug } = params;
+export default function CountryPage() {
+  const { type, slug } = useParams() as { type: string; slug: string };
   const displayType = type.charAt(0).toUpperCase() + type.slice(1);
   const [packagesData, setPackagesData] = useState<Package[]>([]);
   const [loading, setLoading] = useState(true);
-
-  // Функция для фильтрации, если значение location является строкой с кодами через запятую
-  const filterByLocationString = (pkgLocation: string, slug: string) => {
-    return pkgLocation.split(',')
-      .map(item => item.trim().toLowerCase())
-      .includes(slug.toLowerCase());
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -61,16 +60,13 @@ export default function CountryPage({ params }: PageProps) {
         } else if (type === 'regional') {
           const res = await fetch('/regionalPackages.json');
           data = await res.json();
-          // Если выбран регион "eu" – фильтруем пакеты, где slug начинается с "eu" (или, если удобнее, где name содержит "Europe")
           data = data.filter(pkg => pkg.slug.toLowerCase().startsWith(slug));
         } else if (type === 'global') {
           const res = await fetch('/globalPackages.json');
           data = await res.json();
-          // Для глобальных, если в UI slug, например, "3gb" – фильтруем по вхождению "3gb" в name (или slug)
           data = data.filter(pkg => pkg.name.toLowerCase().includes(slug));
         }
         setPackagesData(data);
-        console.log(data);
       } catch (error) {
         console.error("Error fetching package data:", error);
       } finally {
@@ -82,7 +78,6 @@ export default function CountryPage({ params }: PageProps) {
     const interval = setInterval(() => fetchData(), 7200000);
     return () => clearInterval(interval);
   }, [type, slug]);
-  
 
   return (
     <div className="container mx-auto p-4 bg-mainbg">
@@ -113,13 +108,29 @@ export default function CountryPage({ params }: PageProps) {
           <div className="flex flex-col items-center space-y-6 bg-mainbg min-h-screen p-6">
             {packagesData.length > 0 ? (
               <>
-                <PricingCard {...packagesData[0]} />
+                <PricingCard
+                  name={packagesData[0].name}
+                  description={packagesData[0].description}
+                  price={packagesData[0].price}
+                  data={`${packagesData[0].volume}`}
+                  duration={`${packagesData[0].duration} ${packagesData[0].durationUnit}`}
+                  supportTopUpType={packagesData[0].supportTopUpType}
+                  locations={packagesData[0].locationNetworkList.map((network) => network.locationName)}
+                />
                 <h2 className="text-lg text-white font-semibold">All tariffs</h2>
                 <div className="w-full max-w-5xl">
                   <Swiper spaceBetween={20} slidesPerView={1}>
                     {packagesData.map((pkg, index) => (
                       <SwiperSlide key={index}>
-                        <PricingCard {...pkg} />
+                        <PricingCard
+                          name={pkg.name}
+                          description={pkg.description}
+                          price={pkg.price}
+                          data={`${pkg.volume}`}
+                          duration={`${pkg.duration} ${pkg.durationUnit}`}
+                          supportTopUpType={pkg.supportTopUpType}
+                          locations={pkg.locationNetworkList.map((network) => network.locationName)}
+                        />
                       </SwiperSlide>
                     ))}
                   </Swiper>

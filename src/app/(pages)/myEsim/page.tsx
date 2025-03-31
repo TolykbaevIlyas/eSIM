@@ -2,13 +2,13 @@
 import { motion } from 'framer-motion';
 import React, { useState } from 'react'
 
-const eSims = [
+const esims = [
     { id: 1, name: 'Global 5 GB', status: 'Active', usage: '200mb', orderDate: '22.02.2025', expiryDate: '22.03.2025' },
     { id: 2, name: 'Global 5 GB', status: 'Disactive', usage: '200mb', orderDate: '22.02.2025', expiryDate: '22.03.2025' },
   ];
 
-const page = () => {
-    const [sims, setSims] = useState(eSims);
+const MySims = () => {
+    const [sims] = useState(esims);
 
     return (
       <div className="min-h-screen bg-black text-white p-6">
@@ -65,4 +65,4 @@ const page = () => {
   )
 }
 
-export default page
+export default MySims 
